@@ -1,43 +1,38 @@
-// Funkcija za ažuriranje igre
 export const updateGame = (state) => {
-    // Kopiramo trenutno stanje kako bismo radili promene
-    const newState = { ...state };
-
-    // Ako je igra gotova, ništa ne radimo
-    if (newState.gameOver) {
-        return newState;
-    }
-
-    // Novi segment glave zmije na osnovu trenutnog pravca
     const newHead = {
-        x: newState.snake[0].x + newState.direction.x,
-        y: newState.snake[0].y + newState.direction.y,
+        x: state.snake[0].x + state.direction.x,
+        y: state.snake[0].y + state.direction.y,
     };
 
-    // Provera sudara sa zidovima ili samom zmijom
-    if (
-        newHead.x < 0 || newHead.x >= 20 || // Zidovi levo/desno
-        newHead.y < 0 || newHead.y >= 20 || // Zidovi gore/dole
-        newState.snake.some(segment => segment.x === newHead.x && segment.y === newHead.y) // Sudar sa samim sobom
-    ) {
-        newState.gameOver = true; // Igra se završava
-        return newState;
+    // Check for collisions only if the snake has started moving
+    if (state.direction.x !== 0 || state.direction.y !== 0) {
+        const outOfBounds =
+            newHead.x < 0 ||
+            newHead.y < 0 ||
+            newHead.x >= 20 || // Assuming a 20x20 grid
+            newHead.y >= 20;
+
+        const selfCollision = state.snake.some(
+            (segment) => segment.x === newHead.x && segment.y === newHead.y
+        );
+
+        if (outOfBounds || selfCollision) {
+            return { ...state, gameOver: true };
+        }
     }
 
-    // Dodajemo novi segment glave
-    newState.snake = [newHead, ...newState.snake];
+    // Update snake's position
+    const newSnake = [newHead, ...state.snake.slice(0, -1)];
 
-    // Ako zmija pojede hranu
-    if (newHead.x === newState.food.x && newHead.y === newState.food.y) {
-        // Nasumično generišemo novu hranu
-        newState.food = {
-            x: Math.floor(Math.random() * 20),
-            y: Math.floor(Math.random() * 20),
-        };
-    } else {
-        // Uklanjamo poslednji segment zmije (ako nije pojela hranu)
-        newState.snake.pop();
-    }
+    // Check if food is eaten
+    const foodEaten = newHead.x === state.food.x && newHead.y === state.food.y;
+    const newFood = foodEaten
+        ? { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) }
+        : state.food;
 
-    return newState; // Vraćamo ažurirano stanje
+    return {
+        ...state,
+        snake: foodEaten ? [newHead, ...state.snake] : newSnake,
+        food: newFood,
+    };
 };
