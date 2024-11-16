@@ -5,5 +5,6 @@ export const initialState = {
     ],
     food: { x: 15, y: 10 }, // Početna pozicija hrane
     direction: { x: 0, y: 0 }, // Početni pravac (zmija stoji)
-    gameOver: false // Da li je igra završena
+    gameOver: false, // Da li je igra završena
+    score: 0
 };

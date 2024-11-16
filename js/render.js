@@ -27,3 +27,9 @@ export const renderGame = (state) => {
         board.appendChild(message); // Dodajemo poruku na tablu
     }
 };
+
+// Funkcija za prikaz skora
+export const renderScore = (score) => {
+    const scoreElement = document.getElementById('score'); // Selektujemo element skora
+    scoreElement.textContent = score; // Ažuriramo tekst
+};
