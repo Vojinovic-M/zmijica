@@ -19,13 +19,6 @@ export const renderGame = (state) => {
     foodDiv.className = 'food'; // Dodajemo klasu za stil
     board.appendChild(foodDiv); // Dodajemo hranu na tablu
 
-    // Ako je igra završena, prikazujemo poruku
-    if (state.gameOver) {
-        const message = document.createElement('div'); // Kreiramo div za poruku
-        message.className = 'game-over'; // Dodajemo klasu za stil
-        message.textContent = 'Готова игра!'; // Tekst poruke
-        board.appendChild(message); // Dodajemo poruku na tablu
-    }
 };
 
 // Funkcija za prikaz skora
