@@ -37,8 +37,8 @@ const gameLoop = () => {
 // Funkcija za završetak igre
 const endGame = () => {
     clearTimeout(gameLoopId); // Zaustavljanje petlje igre
-    gameMessage.textContent = 'Game Over!'; // Poruka za kraj igre
-    gameButton.textContent = 'Restart'; // Menjamo tekst dugmeta
+    gameMessage.textContent = 'Готова игра!'; // Poruka za kraj igre
+    gameButton.textContent = 'Пробај поново'; // Menjamo tekst dugmeta
     gameOverlay.style.display = 'flex'; // Prikazujemo overlay
 };
 
@@ -51,5 +51,5 @@ document.addEventListener('keydown', (event) => {
 gameButton.addEventListener('click', startGame);
 
 // Inicijalno stanje: prikazujemo poruku za start
-gameMessage.textContent = 'Start Game';
+gameMessage.textContent = 'Почни игру';
 gameOverlay.style.display = 'flex';

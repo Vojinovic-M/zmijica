@@ -23,7 +23,7 @@ export const renderGame = (state) => {
     if (state.gameOver) {
         const message = document.createElement('div'); // Kreiramo div za poruku
         message.className = 'game-over'; // Dodajemo klasu za stil
-        message.textContent = 'Game Over!'; // Tekst poruke
+        message.textContent = 'Готова игра!'; // Tekst poruke
         board.appendChild(message); // Dodajemo poruku na tablu
     }
 };

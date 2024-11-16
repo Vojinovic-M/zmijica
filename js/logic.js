@@ -9,7 +9,7 @@ export const updateGame = (state) => {
         const outOfBounds =
             newHead.x < 0 ||
             newHead.y < 0 ||
-            newHead.x >= 20 || // Pretpostavljamo mrežu 20x20
+            newHead.x >= 20 || 
             newHead.y >= 20;
 
         const selfCollision = state.snake.some(
