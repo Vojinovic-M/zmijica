@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #4f1919, #1634c7); /* Dinamična pozadina */
+    background: linear-gradient(180deg, #5f0000, #001269, #FFFFFF); /* Dinamična pozadina */
     color: white;
     display: flex;
     justify-content: center;
@@ -21,8 +21,8 @@ body {
 /* Tabla za igru */
 #game-board {
     display: grid;
-    grid-template-columns: repeat(20, 20px);
-    grid-template-rows: repeat(20, 20px);
+    grid-template-columns: repeat(20, 30px);
+    grid-template-rows: repeat(20, 30px);
     gap: 1px;
     background-color: rgb(10, 97, 2);
     border: 2px solid white;
@@ -31,7 +31,7 @@ body {
 /* Segmenti zmije */
 .snake {
     background-color: pink;
-    border-radius: 5px; /* Zaobljeni uglovi */
+    border-radius: 10px; /* Zaobljeni uglovi */
 }
 
 /* Hrana */
