@@ -30,7 +30,7 @@ body {
 
 /* Segmenti zmije */
 .snake {
-    background-color: green;
+    background-color: pink;
     border-radius: 5px; /* Zaobljeni uglovi */
 }
 
