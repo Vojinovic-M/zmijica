@@ -21,22 +21,22 @@ export const updateGame = (state) => {
         }
     }
 
-    // Ažuriranje pozicije zmije
+    // azuriranje pozicije zmije
     const newSnake = [newHead, ...state.snake.slice(0, -1)];
 
-    // Provera da li je zmija pojela hranu
+    // provera da li je zmija pojela hranu
     const foodEaten = newHead.x === state.food.x && newHead.y === state.food.y;
     const newFood = foodEaten
         ? { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) }
         : state.food;
 
-    // Ako je zmija pojela hranu, dodajemo novu glavu i povećavamo skor
+    // ako je zmija pojela hranu, dodaje novu glavu i povecava skor
     if (foodEaten) {
         return {
             ...state,
-            snake: [newHead, ...state.snake], // Dodajemo novu glavu
+            snake: [newHead, ...state.snake],
             food: newFood,
-            score: state.score + 1, // Povećaj skor
+            score: state.score + 1,
         };
     } else {
         // Ako nije pojela, uklanjamo rep

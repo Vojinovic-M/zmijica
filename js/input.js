@@ -1,26 +1,26 @@
 // Funkcija za obradu unosa korisnika
 export const handleInput = (state, key) => {
-    // Kopiramo trenutno stanje kako bismo ga menjali
+    // kopija trenutnog stanja za kasnije menjanje
     const newState = { ...state };
 
     // Pravac se menja samo ako zmija ne ide unazad
     switch (key) {
-        case 'ArrowUp': // Strelica gore
+        case 'ArrowUp':
             if (newState.direction.y !== 1) { // Ne može da ide dole
                 newState.direction = { x: 0, y: -1 };
             }
             break;
-        case 'ArrowDown': // Strelica dole
+        case 'ArrowDown':
             if (newState.direction.y !== -1) { // Ne može da ide gore
                 newState.direction = { x: 0, y: 1 };
             }
             break;
-        case 'ArrowLeft': // Strelica levo
+        case 'ArrowLeft':
             if (newState.direction.x !== 1) { // Ne može da ide desno
                 newState.direction = { x: -1, y: 0 };
             }
             break;
-        case 'ArrowRight': // Strelica desno
+        case 'ArrowRight':
             if (newState.direction.x !== -1) { // Ne može da ide levo
                 newState.direction = { x: 1, y: 0 };
             }

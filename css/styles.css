@@ -1,8 +1,7 @@
-/* Centriranje igre i pozadina */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(180deg, #5f0000, #001269, #FFFFFF); /* Dinamična pozadina */
+    background: linear-gradient(180deg, #5f0000, #001269, #FFFFFF); /* zastava Srbije */
     color: white;
     display: flex;
     justify-content: center;
@@ -40,7 +39,6 @@ body {
     border-radius: 50% /* Okrugla hrana */
 }
 
-/* Overlay za poruke i dugmad */
 #game-overlay {
     position: absolute;
     top: 50%;
@@ -54,18 +52,16 @@ body {
     border-radius: 10px;
 }
 
-/* Tekst poruke */
 #game-message {
     font-size: 2rem;
     margin-bottom: 20px;
 }
 
-/* Stil za dugmad */
 #game-button {
     font-size: 1.2rem;
     padding: 10px 20px;
     color: white;
-    background-color: #555;
+    background-color: #555555;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -73,13 +69,13 @@ body {
 }
 
 #game-button:hover {
-    background-color: #777;
+    background-color: #777777;
 }
 
 #score-board {
     font-size: 20px;
     font-family: Arial, sans-serif;
-    color: white;
+    color: rgb(255, 255, 255);
     position: absolute;
     top: 10px;
     left: 10px;

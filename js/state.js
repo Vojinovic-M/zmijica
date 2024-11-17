@@ -1,4 +1,4 @@
-// Definišemo početno stanje igre
+// definicija pocetnog stanja igre
 export const initialState = {
     snake: [ // Početni segmenti zmije (glava na poziciji 10,10)
         { x: 10, y: 10 }
