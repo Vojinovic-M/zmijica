@@ -37,8 +37,8 @@ const gameLoop = () => {
 // Funkcija za završetak igre
 const endGame = () => {
     clearTimeout(gameLoopId); // Zaustavljanje petlje igre
-    gameMessage.textContent = 'Готова игра!'; // Poruka za kraj igre
-    gameButton.textContent = 'Пробај поново'; // Menjamo tekst dugmeta
+    gameMessage.textContent = 'Готова игра!';
+    gameButton.textContent = 'Пробај поново';
     gameOverlay.style.display = 'flex'; // Prikazujemo overlay
 };
 
