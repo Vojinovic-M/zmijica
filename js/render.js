@@ -1,4 +1,4 @@
-import { getLeaderboard } from "./logic.js";
+import { getLeaderboard } from "./leaderboard.js";
 
 // funkcija za prikaz igre
 export const renderGame = (state) => {
@@ -18,7 +18,7 @@ export const renderGame = (state) => {
     const foodDiv = document.createElement('div'); // element za hranu
     foodDiv.style.gridRowStart = state.food.y + 1; // postavka reda na grid
     foodDiv.style.gridColumnStart = state.food.x + 1; // postavka kolone na grid
-    foodDiv.className = 'food'; // klasu za stil
+    foodDiv.className = 'food'; // klasa za stil
     board.appendChild(foodDiv); // Dodajemo hranu na tablu
 
 };

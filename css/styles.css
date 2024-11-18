@@ -7,7 +7,7 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: linear-gradient(#5f0000, #001269, #FFFFFF); /* zastava Srbije */
-    /* background: linear-gradient(#5f0000 33.33%, #001269 33.33%, #001269 66.66%, #FFFFFF 66.66%); zastava Srbije */
+    /* background: linear-gradient(#5f0000 33.33%, #001269 33.33%, #001269 66.66%, #FFFFFF 66.66%); */
     color: white;
     display: flex;
     justify-content: center;
@@ -63,7 +63,6 @@ body {
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-
 }
 
 #game-message {
@@ -158,13 +157,12 @@ body {
 
 
 
-/* Glavni stil za header */
 #main-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #001269; /* Tamno plava boja */
+    background-color: #001269; 
     color: white;
     width: 100%;
     box-sizing: border-box;
@@ -176,7 +174,6 @@ body {
 
 }
 
-/* Stil za tvoje ime */
 #name-container h1 {
     font-size: 24px;
     margin: 0;
@@ -188,7 +185,7 @@ body {
 
 
 
-/* Stil za dugme */
+
 #leaderboard-button {
     background-color: #f1c40f; /* Zlatna boja */
     color: #001269;
@@ -200,8 +197,7 @@ body {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Efekat na dugme kada se hoveruje */
 #leaderboard-button:hover {
-    background-color: #e67e22; /* Narandžasta boja kada se hoveruje */
-    transform: scale(1.1); /* Lagano povećanje dugmeta */
+    background-color: #e67e22; /* narandzasta boja kad se hoveruje */
+    transform: scale(1.1); /* povecanje dugmeta */
 }
