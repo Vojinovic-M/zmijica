@@ -25,14 +25,14 @@ const startGame = () => {
 // petlja igre
 const gameLoop = () => {
     console.log('Game loop running...'); // Debug log
-    gameState = updateGame(gameState); // Update game state
+    gameState = updateGame(gameState);
     renderGame(gameState); // Render updated game state
-    renderScore(gameState.score); // Ažuriranje skora
+    renderScore(gameState.score); // azuriranje skora
 
     if (!gameState.gameOver) {
-        gameLoopId = setTimeout(gameLoop, 200); // Nastavi petlju igre
+        gameLoopId = setTimeout(gameLoop, 100); // Nastavi petlju igre
     } else {
-        endGame(); // Handle game over
+        endGame();
     }
 };
 
@@ -40,10 +40,10 @@ const gameLoop = () => {
 
 // Funkcija za završetak igre
 const endGame = async () => {
-    const name = prompt('Унесите своје име:') // Tražimo ime korisnika
+    const name = prompt('Унесите своје име:')
     if (name) {
         try {
-            await addToLeaderboard(name, gameState.score) // Ažuriramo leaderboard
+            await addToLeaderboard(name, gameState.score) // azurira leaderboard
             renderLeaderboard()
             console.log('Successfully added to leaderboard')
         } catch (error) {
@@ -51,10 +51,10 @@ const endGame = async () => {
         }
     }
 
-    clearTimeout(gameLoopId); // Zaustavljanje petlje igre
+    clearTimeout(gameLoopId); // zaustavi petlju igre
     gameMessage.textContent = 'Готова игра!'
     gameButton.textContent = 'Пробај поново'
-    gameOverlay.style.display = 'flex' // Prikazujemo overlay
+    gameOverlay.style.display = 'flex' // prikazuje overlay
 };
 
 
@@ -62,10 +62,10 @@ const endGame = async () => {
 
 // Obrada unosa korisnika
 document.addEventListener('keydown', (event) => {
-    gameState = handleInput(gameState, event.key); // Ažuriranje pravca
+    gameState = handleInput(gameState, event.key); // azuriranje pravca
 });
 
-// Pokretanje igre pritiskom na dugme
+// pokretanje igre pritiskom na dugme
 gameButton.addEventListener('click', () => {
     startGame()
     renderLeaderboard()
