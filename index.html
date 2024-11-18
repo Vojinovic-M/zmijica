@@ -18,32 +18,27 @@
         <div id="name-container">
             <h1>Марко В.</h1>
         </div>
-        <button id="leaderboard-button">Погледај резултате</button>
-    </header>
-
-    <header id="main-header">
-        <div id="name-container">
-            <h1>Марко В.</h1>
-        </div>
         <div id="score-board">
             Број бодова: <span id="score">0</span>
         </div>
         <button id="leaderboard-button">Погледај резултате</button>
     </header>
-    
-    <div id="game-container">
-        <div id="game-board"></div>
-    </div>
-    <div id="game-overlay">
-        <h1 id="game-message"></h1> <!-- poruka (Pocni igru / Gotova igra) -->
-        <button id="game-button">Покрени игру</button>
-    </div>
-    <div id="leaderboard">
-        <h2>Топ 10 Резултата!</h2>
-        <ul id="leaderboard-list">
-            <!-- Rezultati -->
-        </ul>
-    </div>
+
+        <div id="game-container">
+            <div id="game-board"></div>
+
+            <div id="game-overlay">
+                <h1 id="game-message"></h1> <!-- poruka (Pocni igru / Gotova igra) -->
+                <button id="game-button">Покрени игру</button>
+            </div>
+        </div>
+
+        <div id="leaderboard">
+            <h2>Топ 10 Резултата!</h2>
+            <ul id="leaderboard-list">
+                <!-- Rezultati -->
+            </ul>
+        </div>
     <script type="module" src="js/state.js"></script>
     <script type="module" src="js/render.js"></script>
     <script type="module" src="js/logic.js"></script>
@@ -58,7 +53,7 @@
         // Dodajemo event listener za klik na dugme
         leaderboardButton.addEventListener('click', function() {
             // Ako je leaderboard trenutno skriven, prikaži ga
-            if (leaderboard.style.display === 'none') {
+            if (leaderboard.style.display === 'none' || leaderboard.style.display === '') {
                 leaderboard.style.display = 'flex';
                 leaderboardButton.textContent = 'Сакриј резултате'; // Menjamo tekst na dugmetu
             } else {
