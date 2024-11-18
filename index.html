@@ -5,25 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Змијица</title>
     <link rel="stylesheet" href="css/styles.css">
+
+
+    <script type="module">
+
+    </script>
+
+    
 </head>
 <body>
-    <div id="game-container">
-        
-        <div id="game-board"></div>
-        <div id="leaderboard"></div>
+    <header id="main-header">
+        <div id="name-container">
+            <h1>Марко В.</h1>
+        </div>
         <div id="score-board">
             Број бодова: <span id="score">0</span>
         </div>
+        <button id="leaderboard-button">Погледај резултате</button>
+    </header>
 
-        <div id="game-overlay">
-            <h1 id="game-message"></h1> <!-- poruka (Pocni igru / Gotova igra) -->
-            <button id="game-button">Покрени игру</button>
+        <div id="game-container">
+            <div id="game-board"></div>
+
+            <div id="game-overlay">
+                <h1 id="game-message"></h1> <!-- poruka (Pocni igru / Gotova igra) -->
+                <button id="game-button">Покрени игру</button>
+            </div>
         </div>
-    </div>
+
+        <div id="leaderboard">
+            <h2>Топ 10 Резултата!</h2>
+            <ul id="leaderboard-list">
+                <!-- Rezultati -->
+            </ul>
+        </div>
     <script type="module" src="js/state.js"></script>
     <script type="module" src="js/render.js"></script>
     <script type="module" src="js/logic.js"></script>
     <script type="module" src="js/input.js"></script>
     <script type="module" src="js/main.js"></script>
+
+    <script>
+        // Selektujemo dugme i leaderboard
+        const leaderboardButton = document.getElementById('leaderboard-button');
+        const leaderboard = document.getElementById('leaderboard');
+
+        // Dodajemo event listener za klik na dugme
+        leaderboardButton.addEventListener('click', function() {
+            // Ako je leaderboard trenutno skriven, prikaži ga
+            if (leaderboard.style.display === 'none' || leaderboard.style.display === '') {
+                leaderboard.style.display = 'flex';
+                leaderboardButton.textContent = 'Сакриј резултате'; // Menjamo tekst na dugmetu
+            } else {
+                leaderboard.style.display = 'none';
+                leaderboardButton.textContent = 'Погледај резултате'; // Menjamo tekst na dugmetu
+            }
+        });
+
+    </script>
 </body>
 </html>

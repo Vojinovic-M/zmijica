@@ -1,6 +1,7 @@
 import { initialState } from './state.js';
-import { updateGame, updateLeaderboard } from './logic.js';
+import { updateGame } from './logic.js';
 import { renderGame, renderScore, renderLeaderboard } from './render.js';
+import { addToLeaderboard } from './leaderboard.js';
 import { handleInput } from './input.js';
 
 let gameState = { ...initialState }; // kopija pocetnog stanja
@@ -35,19 +36,28 @@ const gameLoop = () => {
     }
 };
 
+
+
 // Funkcija za završetak igre
-const endGame = () => {
-    const name = prompt('Унесите своје име:'); // Tražimo ime korisnika
+const endGame = async () => {
+    const name = prompt('Унесите своје име:') // Tražimo ime korisnika
     if (name) {
-        updateLeaderboard(name, gameState.score); // Ažuriramo leaderboard
-        renderLeaderboard(); // Prikazujemo ažurirani leaderboard
+        try {
+            await addToLeaderboard(name, gameState.score) // Ažuriramo leaderboard
+            renderLeaderboard()
+            console.log('Successfully added to leaderboard')
+        } catch (error) {
+            console.error('Failed to update leaderboard:', error.message);
+        }
     }
 
     clearTimeout(gameLoopId); // Zaustavljanje petlje igre
-    gameMessage.textContent = 'Готова игра!';
-    gameButton.textContent = 'Пробај поново';
-    gameOverlay.style.display = 'flex'; // Prikazujemo overlay
+    gameMessage.textContent = 'Готова игра!'
+    gameButton.textContent = 'Пробај поново'
+    gameOverlay.style.display = 'flex' // Prikazujemo overlay
 };
+
+
 
 
 // Obrada unosa korisnika
@@ -56,8 +66,11 @@ document.addEventListener('keydown', (event) => {
 });
 
 // Pokretanje igre pritiskom na dugme
-gameButton.addEventListener('click', startGame);
+gameButton.addEventListener('click', () => {
+    startGame()
+    renderLeaderboard()
+});
 
 // Inicijalno stanje: prikazujemo poruku za start
-gameMessage.textContent = 'Почни игру';
-gameOverlay.style.display = 'flex';
+gameMessage.textContent = 'Почни игру'
+gameOverlay.style.display = 'flex'

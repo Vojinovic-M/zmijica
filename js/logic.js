@@ -1,3 +1,6 @@
+import { supabase } from "./supabase.js";
+
+
 export const updateGame = (state) => {
     const newHead = {
         x: state.snake[0].x + state.direction.x,
@@ -52,23 +55,49 @@ const generateFood = (snake) => {
     return newFood;
 };
 
-export const getLeaderboard = () => {
-    return JSON.parse(localStorage.getItem('leaderboard')) || [];
+export const getLeaderboard = async () => {
+    try {
+        const { data, error } = await supabase
+            .from('leaderboard')
+            .select('name, score')
+            .order('score', { ascending: false });
+
+        if (error) {
+            console.error('Greška pri dohvaćanju rezultata:', error);
+            return [];
+        }
+
+        return data;
+    } catch (err) {
+        console.error('Greška pri povezivanju sa bazom:', err);
+        return [];
+    }
 };
 
 
-export const updateLeaderboard = (name, score) => {
-    const leaderboard = getLeaderboard();
-    const newEntry = { name, score };
 
-    // Dodavanje novog rezultata i sortiranje po broju bodova (najveći prvi)
-    const updatedLeaderboard = [...leaderboard, newEntry].sort((a, b) => b.score - a.score);
+export const updateLeaderboard = async (name, score) => {
+    try {
+        // Dodavanje novog rezultata
+        const { data, error } = await supabase
+            .from('leaderboard')
+            .insert([{ name, score }]);
 
-    // Čuvanje samo prvih 10 rezultata (opciono)
-    const trimmedLeaderboard = updatedLeaderboard.slice(0, 10);
+        if (error) {
+            console.error('Greška pri dodavanju rezultata:', error);
+            return [];
+        }
 
-    // Ažuriranje u localStorage
-    localStorage.setItem('leaderboard', JSON.stringify(trimmedLeaderboard));
-    return trimmedLeaderboard;
+        // Dohvatanje svih rezultata iz baze i sortiranje po broju bodova
+        const leaderboard = await getLeaderboard();
+
+        // Čuvanje samo prvih 10 rezultata (opciono)
+        const trimmedLeaderboard = leaderboard.slice(0, 10);
+
+        return trimmedLeaderboard;
+    } catch (err) {
+        console.error('Greška pri ažuriranju leaderboard-a:', err);
+        return [];
+    }
 };
 

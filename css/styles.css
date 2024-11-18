@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -10,12 +15,13 @@ body {
     height: 100vh;
 }
 
-/* Glavni kontejner za igru */
+
 #game-container {
     position: relative; /* Za pozicioniranje overlay-a preko table */
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 /* Tabla za igru */
@@ -27,6 +33,9 @@ body {
     background-color: rgb(10, 97, 2);
     border: 2px solid white;
 }
+
+
+
 
 /* Segmenti zmije */
 .snake {
@@ -40,6 +49,8 @@ body {
     border-radius: 50% /* Okrugla hrana */
 }
 
+
+
 #game-overlay {
     position: absolute;
     top: 50%;
@@ -51,12 +62,17 @@ body {
     background: rgba(0, 0, 0, 0.8); /* Poluprovidna pozadina */
     padding: 20px;
     border-radius: 10px;
+    text-align: center;
+
 }
 
 #game-message {
     font-size: 2rem;
     margin-bottom: 20px;
 }
+
+
+
 
 #game-button {
     font-size: 1.2rem;
@@ -73,29 +89,119 @@ body {
     background-color: #777777;
 }
 
+
+
+
+
+
 #score-board {
-    font-size: 20px;
+    font-size: 18px;
     font-family: Arial, sans-serif;
-    color: rgb(255, 255, 255);
-    position: absolute;
-    top: 10px;
-    left: 10px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1); /* Lagano providna bela pozadina */
+    padding: 10px 10px;
+    border-radius: 5px;
+    flex-grow: 1; /* Zauzima prostor za centriranje */
+    margin: 0 20px;
+    
 }
 
+
+
+
+
+
+
+
+
 #leaderboard {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #000000;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    position: relative;
+    width: 300px;
+    height: 623px;
+    margin-left: 0;
+    background-color: #001269;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid white;
 }
 
 #leaderboard h2 {
-    text-align: center;
-    margin-bottom: 10px;
+    font-size: 24px;
+    color: #7b7b7b;
+    margin: 20px;
 }
 
-#leaderboard div {
-    padding: 5px 0;
-    font-size: 14px;
+#leaderboard-list {
+    list-style-type: none;
+    width: 100%;
+    padding-left: 0;
+}
+
+#leaderboard-list li {
+    padding: 8px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    color: #b7b7b7;
+    font-size: 2.5ex;
+}
+
+#leaderboard-list li:last-child {
+    border-bottom: none;
+}
+
+
+
+
+
+
+
+
+/* Glavni stil za header */
+#main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #001269; /* Tamno plava boja */
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    border-bottom: 1px solid #ddd;
+
+}
+
+/* Stil za tvoje ime */
+#name-container h1 {
+    font-size: 24px;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+
+
+
+
+
+/* Stil za dugme */
+#leaderboard-button {
+    background-color: #f1c40f; /* Zlatna boja */
+    color: #001269;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Efekat na dugme kada se hoveruje */
+#leaderboard-button:hover {
+    background-color: #e67e22; /* Narandžasta boja kada se hoveruje */
+    transform: scale(1.1); /* Lagano povećanje dugmeta */
 }
