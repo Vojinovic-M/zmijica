@@ -1,4 +1,4 @@
-import { getLeaderboard } from "./logic.js";
+
 
 // funkcija za prikaz igre
 export const renderGame = (state) => {

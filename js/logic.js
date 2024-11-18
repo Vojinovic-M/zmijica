@@ -51,24 +51,3 @@ const generateFood = (snake) => {
     } while (isOnSnake);
     return newFood;
 };
-
-export const getLeaderboard = () => {
-    return JSON.parse(localStorage.getItem('leaderboard')) || [];
-};
-
-
-export const updateLeaderboard = (name, score) => {
-    const leaderboard = getLeaderboard();
-    const newEntry = { name, score };
-
-    // Dodavanje novog rezultata i sortiranje po broju bodova (najveći prvi)
-    const updatedLeaderboard = [...leaderboard, newEntry].sort((a, b) => b.score - a.score);
-
-    // Čuvanje samo prvih 10 rezultata (opciono)
-    const trimmedLeaderboard = updatedLeaderboard.slice(0, 10);
-
-    // Ažuriranje u localStorage
-    localStorage.setItem('leaderboard', JSON.stringify(trimmedLeaderboard));
-    return trimmedLeaderboard;
-};
-

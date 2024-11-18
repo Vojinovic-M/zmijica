@@ -1,5 +1,5 @@
 import { initialState } from './state.js';
-import { updateGame, updateLeaderboard } from './logic.js';
+import { updateGame } from './logic.js'
 import { renderGame, renderScore, renderLeaderboard } from './render.js';
 import { handleInput } from './input.js';
 

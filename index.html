@@ -5,6 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Змијица</title>
     <link rel="stylesheet" href="css/styles.css">
+
+    <script type="module">
+        // Dodaj Firebase modula
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "firebase/app";
+        import { getAnalytics } from "firebase/analytics";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+        apiKey: "AIzaSyAXcQMW6gCw6nPk0ZL67D1KwZD2QPphvvw",
+        authDomain: "zmijica-ad323.firebaseapp.com",
+        projectId: "zmijica-ad323",
+        storageBucket: "zmijica-ad323.firebasestorage.app",
+        messagingSenderId: "889694792069",
+        appId: "1:889694792069:web:ae243366846c4d39747cec",
+        measurementId: "G-WBE9Q924EX"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+    
+        // Referenca za leaderboard
+        const leaderboardRef = collection(db, "leaderboard");
+    
+        // Ažuriranje leaderboard-a
+        async function updateLeaderboard(name, score) {
+            await addDoc(leaderboardRef, { name, score });
+            console.log("Score added:", { name, score });
+        }
+    
+        // Dohvatanje leaderboard-a
+        async function getLeaderboard() {
+            const q = query(leaderboardRef, orderBy("score", "desc"));
+            const snapshot = await getDocs(q);
+            snapshot.forEach(doc => {
+                console.log(doc.data());
+            });
+        }
+    
+        // Testiranje funkcija
+        updateLeaderboard("Player1", 100);
+        getLeaderboard();
+    </script>
+    
 </head>
 <body>
     <div id="game-container">
