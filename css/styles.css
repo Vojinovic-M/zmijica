@@ -1,7 +1,8 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(180deg, #5f0000, #001269, #FFFFFF); /* zastava Srbije */
+    background: linear-gradient(#5f0000, #001269, #FFFFFF); /* zastava Srbije */
+    /* background: linear-gradient(#5f0000 33.33%, #001269 33.33%, #001269 66.66%, #FFFFFF 66.66%); zastava Srbije */
     color: white;
     display: flex;
     justify-content: center;
@@ -79,4 +80,22 @@ body {
     position: absolute;
     top: 10px;
     left: 10px;
+}
+
+#leaderboard {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #000000;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#leaderboard h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#leaderboard div {
+    padding: 5px 0;
+    font-size: 14px;
 }
