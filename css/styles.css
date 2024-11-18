@@ -83,19 +83,29 @@ body {
 }
 
 #leaderboard {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #000000;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    position: fixed; /* Fixiraj ga na ekranu, da ne zavisi od #game-container */
+    top: 10px; /* Od vrha ekrana */
+    right: 10px; /* Od desnog ruba ekrana */
+    height: 300px; /* Širina leaderboarda */
+    background-color: rgba(0, 0, 0, 0.7); /* Polu providna crna pozadina */
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: -10; /* Pobrinite se da leaderboard bude iznad drugih elemenata */
 }
 
 #leaderboard h2 {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-#leaderboard div {
-    padding: 5px 0;
-    font-size: 14px;
+#leaderboard-list {
+    list-style-type: decimal;
+    padding-left: 20px;
+}
+
+#leaderboard-list li {
+    margin-bottom: 10px;
+    font-size: 18px;
 }

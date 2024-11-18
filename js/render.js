@@ -30,14 +30,15 @@ export const renderScore = (score) => {
 };
 
 
-export const renderLeaderboard = () => {
-    const leaderboard = getLeaderboard();
-    const leaderboardDiv = document.getElementById('leaderboard');
-    leaderboardDiv.innerHTML = '<h2>Leaderboard</h2>';
-    
-    leaderboard.forEach((entry, index) => {
-        const entryDiv = document.createElement('div');
-        entryDiv.textContent = `${index + 1}. ${entry.name} - ${entry.score}`;
-        leaderboardDiv.appendChild(entryDiv);
+// Funkcija za renderovanje leaderboarda
+export const renderLeaderboard = async () => {
+    const leaderboard = await getLeaderboard();
+    const leaderboardList = document.getElementById('leaderboard-list');
+    leaderboardList.innerHTML = ''; // Očistiti prethodne rezultate
+
+    leaderboard.slice(0, 10).forEach((entry, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${entry.name} - ${entry.score} поена`;
+        leaderboardList.appendChild(li);
     });
 };

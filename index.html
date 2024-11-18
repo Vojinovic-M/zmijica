@@ -5,19 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Змијица</title>
     <link rel="stylesheet" href="css/styles.css">
+
+
+    <script type="module">
+
+    </script>
+
+    
 </head>
 <body>
-    <div id="game-container">
-        
-        <div id="game-board"></div>
-        <div id="leaderboard"></div>
-        <div id="score-board">
-            Број бодова: <span id="score">0</span>
+    <div id="main-container">
+        <div id="game-container">
+            
+            <div id="game-board"></div>
+
+            <div id="score-board">
+                Број бодова: <span id="score">0</span>
+            </div>
+
+            <div id="game-overlay">
+                <h1 id="game-message"></h1> <!-- poruka (Pocni igru / Gotova igra) -->
+                <button id="game-button">Покрени игру</button>
+            </div>
         </div>
 
-        <div id="game-overlay">
-            <h1 id="game-message"></h1> <!-- poruka (Pocni igru / Gotova igra) -->
-            <button id="game-button">Покрени игру</button>
+        <div id="leaderboard">
+            <h2>Топ 10 Резултата!</h2>
+            <ol id="leaderboard-list">
+                <!-- Rezultati -->
+            </ol>
         </div>
     </div>
     <script type="module" src="js/state.js"></script>
