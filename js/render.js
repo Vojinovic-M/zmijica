@@ -1,3 +1,5 @@
+import { getLeaderboard } from "./logic.js";
+
 // funkcija za prikaz igre
 export const renderGame = (state) => {
     const board = document.getElementById('game-board'); // element tabele
@@ -25,4 +27,17 @@ export const renderGame = (state) => {
 export const renderScore = (score) => {
     const scoreElement = document.getElementById('score'); // element bodova
     scoreElement.textContent = score; // Ažuriramo tekst
+};
+
+
+export const renderLeaderboard = () => {
+    const leaderboard = getLeaderboard();
+    const leaderboardDiv = document.getElementById('leaderboard');
+    leaderboardDiv.innerHTML = '<h2>Leaderboard</h2>';
+    
+    leaderboard.forEach((entry, index) => {
+        const entryDiv = document.createElement('div');
+        entryDiv.textContent = `${index + 1}. ${entry.name} - ${entry.score}`;
+        leaderboardDiv.appendChild(entryDiv);
+    });
 };
