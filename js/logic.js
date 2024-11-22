@@ -6,7 +6,6 @@ export const updateGame = (state) => {
         x: state.snake[0].x + state.direction.x,
         y: state.snake[0].y + state.direction.y,
     };
-    // Provera sudara samo ako je zmija počela da se pomera
     if (state.direction.x !== 0 || state.direction.y !== 0) {
         const outOfBounds =
             newHead.x < 0 ||
@@ -24,9 +23,7 @@ export const updateGame = (state) => {
     }
     // provera da li je zmija pojela hranu
     const foodEaten = newHead.x === state.food.x && newHead.y === state.food.y;
-    const newFood = foodEaten
-        ? generateFood(state.snake)
-        : state.food;
+    const newFood = foodEaten ? generateFood(state.snake) : state.food;
 
     // azuriranje pozicije zmije
     const newSnake = foodEaten
@@ -90,13 +87,10 @@ export const updateLeaderboard = async (name, score) => {
 
         // Dohvatanje svih rezultata iz baze i sortiranje po broju bodova
         const leaderboard = await getLeaderboard();
-
-        // Čuvanje samo prvih 10 rezultata (opciono)
         const trimmedLeaderboard = leaderboard.slice(0, 10);
-
         return trimmedLeaderboard;
     } catch (err) {
-        console.error('Greška pri ažuriranju leaderboard-a:', err);
+        console.error('Greska pri azuriranju leaderboard-a:', err);
         return [];
     }
 };

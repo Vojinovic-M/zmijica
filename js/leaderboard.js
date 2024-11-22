@@ -1,6 +1,6 @@
 import { supabase } from './supabase.js';
 
-// Funkcija za dodavanje rezultata
+
 export const addToLeaderboard = async (name, score) => {
     try {
         const { data, error } = await supabase
@@ -21,7 +21,6 @@ export const addToLeaderboard = async (name, score) => {
 };
 
 
-// Funkcija za dohvaćanje rezultata sa Supabase
 export const getLeaderboard = async () => {
     const { data, error } = await supabase
         .from('leaderboard')
@@ -38,7 +37,6 @@ export const getLeaderboard = async () => {
 };
 
 
-// Funkcija za dodavanje novog rezultata u leaderboard
 export const updateLeaderboard = async (name, score) => {
     try {
         // Dodavanje rezultata u bazu

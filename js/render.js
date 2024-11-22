@@ -1,6 +1,6 @@
 import { getLeaderboard } from "./leaderboard.js";
 
-// funkcija za prikaz igre
+
 export const renderGame = (state) => {
     const board = document.getElementById('game-board'); // element tabele
     board.innerHTML = ''; // brisanje prethodne igre
@@ -14,27 +14,26 @@ export const renderGame = (state) => {
         board.appendChild(segmentDiv); // segment na tablu
     });
 
-    // Prikaz hrane
+
     const foodDiv = document.createElement('div'); // element za hranu
     foodDiv.style.gridRowStart = state.food.y + 1; // postavka reda na grid
     foodDiv.style.gridColumnStart = state.food.x + 1; // postavka kolone na grid
     foodDiv.className = 'food'; // klasa za stil
-    board.appendChild(foodDiv); // Dodajemo hranu na tablu
+    board.appendChild(foodDiv); // dodaje hranu na tablu
 
 };
 
 
 export const renderScore = (score) => {
     const scoreElement = document.getElementById('score'); // element bodova
-    scoreElement.textContent = score; // Ažuriramo tekst
+    scoreElement.textContent = score; // azurira tekst
 };
 
 
-// Funkcija za renderovanje leaderboarda
 export const renderLeaderboard = async () => {
     const leaderboard = await getLeaderboard();
     const leaderboardList = document.getElementById('leaderboard-list');
-    leaderboardList.innerHTML = ''; // Očistiti prethodne rezultate
+    leaderboardList.innerHTML = ''; // ocisti prethodne rezultate
 
     leaderboard.slice(0, 10).forEach((entry, index) => {
         const li = document.createElement('li');
