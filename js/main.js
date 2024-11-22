@@ -26,19 +26,17 @@ const startGame = () => {
 const gameLoop = () => {
     console.log('Game loop running...'); // Debug log
     gameState = updateGame(gameState);
-    renderGame(gameState); // Render updated game state
+    renderGame(gameState);
     renderScore(gameState.score); // azuriranje skora
 
     if (!gameState.gameOver) {
-        gameLoopId = setTimeout(gameLoop, 100); // Nastavi petlju igre
+        gameLoopId = setTimeout(gameLoop, 100);
     } else {
         endGame();
     }
 };
 
 
-
-// Funkcija za završetak igre
 const endGame = async () => {
     const name = prompt('Унесите своје име:')
     if (name) {
@@ -58,19 +56,16 @@ const endGame = async () => {
 };
 
 
-
-
-// Obrada unosa korisnika
 document.addEventListener('keydown', (event) => {
     gameState = handleInput(gameState, event.key); // azuriranje pravca
 });
 
-// pokretanje igre pritiskom na dugme
+
 gameButton.addEventListener('click', () => {
     startGame()
     renderLeaderboard()
 });
 
-// Inicijalno stanje: prikazujemo poruku za start
+
 gameMessage.textContent = 'Почни игру'
 gameOverlay.style.display = 'flex'
