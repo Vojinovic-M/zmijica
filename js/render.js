@@ -1,41 +1,32 @@
-import { getLeaderboard } from "./leaderboard.js";
+export const renderSystem = (entities) => {
+    console.log('Rendering entities:', entities);
+    const canvas = document.getElementById('game-board');
+    const context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
-
-export const renderGame = (state) => {
-    const board = document.getElementById('game-board'); // element tabele
-    board.innerHTML = ''; // brisanje prethodne igre
-
-    // prikaz svakog segmenta zmije
-    state.snake.forEach(segment => {
-        const segmentDiv = document.createElement('div'); // element za segment
-        segmentDiv.style.gridRowStart = segment.y + 1; // postavka reda na grid
-        segmentDiv.style.gridColumnStart = segment.x + 1; // postavka kolone na grid
-        segmentDiv.className = 'snake'; // klasа za stil
-        board.appendChild(segmentDiv); // segment na tablu
+    entities.forEach(entity => {
+        if (entity.Snake && entity.Position) {
+            context.fillStyle = 'green';
+            context.fillRect(entity.Position.x * 10, entity.Position.y * 10, 10, 10);
+        }
+        if (entity.Food && entity.Position) {
+            context.fillStyle = 'red';
+            context.fillRect(entity.Position.x * 10, entity.Position.y * 10, 10, 10);
+        }
     });
-
-
-    const foodDiv = document.createElement('div'); // element za hranu
-    foodDiv.style.gridRowStart = state.food.y + 1; // postavka reda na grid
-    foodDiv.style.gridColumnStart = state.food.x + 1; // postavka kolone na grid
-    foodDiv.className = 'food'; // klasa za stil
-    board.appendChild(foodDiv); // dodaje hranu na tablu
-
 };
-
 
 export const renderScore = (score) => {
-    const scoreElement = document.getElementById('score'); // element bodova
-    scoreElement.textContent = score; // azurira tekst
+    const scoreElement = document.getElementById('score');
+    scoreElement.textContent = score;
 };
 
-
-export const renderLeaderboard = async () => {
+export const renderLeaderboard = async (getLeaderboard) => {
     const leaderboard = await getLeaderboard();
     const leaderboardList = document.getElementById('leaderboard-list');
-    leaderboardList.innerHTML = ''; // ocisti prethodne rezultate
+    leaderboardList.innerHTML = '';
 
-    leaderboard.slice(0, 10).forEach((entry, index) => {
+    leaderboard.slice(0, 10).forEach(entry => {
         const li = document.createElement('li');
         li.textContent = `${entry.name} - ${entry.score} поена`;
         leaderboardList.appendChild(li);

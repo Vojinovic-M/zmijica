@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Змијица</title>
     <link rel="stylesheet" href="css/styles.css">
-
-
 </head>
 <body>
     <header id="main-header">
@@ -18,44 +16,28 @@
         </div>
         <button id="leaderboard-button">Погледај резултате</button>
     </header>
-
         <div id="game-container">
-            <div id="game-board"></div>
-
+            <canvas id="game-board" width="500px" height="500px"></canvas>
             <div id="game-overlay">
                 <h1 id="game-message"></h1> <!-- poruka (Pocni igru / Gotova igra) -->
                 <button id="game-button">Покрени игру</button>
             </div>
         </div>
-
         <div id="leaderboard">
             <h2>Топ 10 Резултата!</h2>
             <ul id="leaderboard-list">
                 <!-- Rezultati -->
             </ul>
         </div>
-    <script type="module" src="js/state.js"></script>
-    <script type="module" src="js/render.js"></script>
-    <script type="module" src="js/logic.js"></script>
-    <script type="module" src="js/input.js"></script>
-    <script type="module" src="js/main.js"></script>
-
-    <script>
-        const leaderboardButton = document.getElementById('leaderboard-button');
-        const leaderboard = document.getElementById('leaderboard');
-
-        // Dodajemo event listener za klik na dugme
-        leaderboardButton.addEventListener('click', function() {
-            // Ako je leaderboard trenutno skriven, prikaži ga
-            if (leaderboard.style.display === 'none' || leaderboard.style.display === '') {
-                leaderboard.style.display = 'flex';
-                leaderboardButton.textContent = 'Сакриј резултате'; // Menjamo tekst na dugmetu
-            } else {
-                leaderboard.style.display = 'none';
-                leaderboardButton.textContent = 'Погледај резултате'; // Menjamo tekst na dugmetu
-            }
-        });
-
-    </script>
+    <script src="js/components.js" type="module"></script>
+    <script src="js/entities.js" type="module"></script>
+    <script src="js/systems.js" type="module"></script>
+    <script src="js/render.js" type="module"></script>
+    <script src="js/input.js" type="module"></script>
+    <script src="js/supabase.js" type="module"></script>
+    <script src="js/monad.js" type="module"></script>
+    <script src="js/leaderboard.js" type="module"></script>
+    <script src="js/state.js" type="module"></script>
+    <script src="js/main.js" type="module"></script>
 </body>
 </html>

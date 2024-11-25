@@ -1,4 +1,4 @@
-export const handleInput = (state, key) => {
+export const controlInput = (state, key) => {
     // kopija trenutnog stanja za kasnije menjanje
     const newState = { ...state };
 

@@ -1,41 +1,34 @@
-import { supabase } from './supabase.js';
-
+import {supabase} from './supabase.js';
+import {supabaseMonad} from './monad.js';
 
 export const addToLeaderboard = async (name, score) => {
-    try {
-        const { data, error } = await supabase
-            .from('leaderboard')
-            .insert([{ name, score }]);
+    const result = await supabaseMonad(
+        supabase.from('leaderboard')
+            .insert([{ name, score }])
+    );
 
-        if (error) {
-            console.error('Greška pri dodavanju rezultata:', error);
-        } else {
-            console.log('Rezultat uspešno dodat:', data);
-        }
-
-        // Dodatno logovanje da biste uočili šta se tačno dešava
-        console.log('Puni odgovor od Supabase:', { data, error });
-    } catch (err) {
-        console.error('Greška pri dodavanju rezultata:', err);
+    if (result.error) {
+        console.error('Greška pri dodavanju rezultata:', result.error);
+    } else {
+        console.log('Rezultat uspešno dodat:', result.data);
     }
 };
-
 
 export const getLeaderboard = async () => {
-    const { data, error } = await supabase
-        .from('leaderboard')
-        .select('name, score')
-        .order('score', { ascending: false });
+    const result = await supabaseMonad(
+        supabase.from('leaderboard')
+            .select('name, score')
+            .order('score', { ascending: false })
+    );
 
-    if (error) {
-        console.error('Greška pri dohvaćanju rezultata:', error);
+    if (result.error) {
+        console.error('Greška pri dohvaćanju rezultata:', result.error);
         return [];
     } else {
-        console.log('Podaci sa baze:', data);  // Logovanje podataka
-        return data;
+        console.log('Podaci sa baze:', result.data);
+        return result.data;
     }
 };
-
 
 export const updateLeaderboard = async (name, score) => {
     try {
@@ -46,12 +39,9 @@ export const updateLeaderboard = async (name, score) => {
         const leaderboard = await getLeaderboard();
 
         // Čuvanje samo prvih 10 rezultata
-        const trimmedLeaderboard = leaderboard.slice(0, 10);
-
-        return trimmedLeaderboard; // Vraća leaderboard sa ažuriranim rezultatima
+        return leaderboard.slice(0, 10); // Vraća leaderboard sa ažuriranim rezultatima
     } catch (err) {
         console.error('Greška pri ažuriranju leaderboard-a:', err);
         return [];
     }
 };
-

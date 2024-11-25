@@ -1,71 +1,93 @@
 import { initialState } from './state.js';
-import { updateGame } from './logic.js';
-import { renderGame, renderScore, renderLeaderboard } from './render.js';
+import { getLeaderboard } from './logic.js';
+import { renderScore, renderLeaderboard, renderSystem } from './render.js';
 import { addToLeaderboard } from './leaderboard.js';
-import { handleInput } from './input.js';
-
-let gameState = { ...initialState }; // kopija pocetnog stanja
-let gameLoopId = null; // ID petlje igre
+import { controlInput } from './input.js';
+import { createFood, createSnake } from './entities.js';
+import {handleInput, updateGameEntities} from './systems.js';
 
 const gameOverlay = document.getElementById('game-overlay');
 const gameMessage = document.getElementById('game-message');
 const gameButton = document.getElementById('game-button');
+const scoreElement = document.getElementById('score');
 
-// pokretanje igre
-const startGame = () => {
-    console.log('Initial state:', initialState);
-    gameState = { ...initialState }; // Resetovanje stanja
-    gameOverlay.style.display = 'none'; // Sakrivanje overlay-a
-    gameMessage.textContent = ''; // Očisti poruku
-    renderGame(gameState); // Prikaz početnog stanja
-    renderScore(gameState.score); // Reset skora
-    gameLoop(); // Pokretanje petlje igre
+const canvas = document.getElementById('game-board');
+const ctx = canvas.getContext('2d');
+
+let gameLoopId = null; // Game loop ID
+const gameDelay = 150;
+
+const initializeGameState = () => {
+    const initialSnake = createSnake();
+    const food = createFood([initialSnake.Position]);
+    return [initialSnake, food];
 };
 
-// petlja igre
-const gameLoop = () => {
-    console.log('Game loop running...'); // Debug log
-    gameState = updateGame(gameState);
-    renderGame(gameState);
-    renderScore(gameState.score); // azuriranje skora
+let gameState = initializeGameState();
 
-    if (!gameState.gameOver) {
-        gameLoopId = setTimeout(gameLoop, 100);
+const startGame = () => {
+    gameState = initializeGameState();
+    gameOverlay.style.display = 'none';
+    gameMessage.textContent = '';
+    gameLoop();
+};
+
+const gameLoop = () => {
+    console.log("gameState before update:", gameState);
+
+    if (!Array.isArray(gameState)) {
+        console.error("Expected gameState to be an array, received:", gameState);
+        gameState = initializeGameState();
+    }
+
+    gameState = updateGameEntities(gameState);
+    console.log("gameState after update:", gameState);
+
+    renderSystem(gameState);
+
+    const snakeEntity = gameState.find(entity => entity.Snake);
+    renderScore(snakeEntity?.Score?.value || 0);
+
+    if (!gameState.some(entity => entity.gameOver)) {
+        gameLoopId = setTimeout(gameLoop, gameDelay);
     } else {
         endGame();
     }
 };
 
-
 const endGame = async () => {
-    const name = prompt('Унесите своје име:')
+    const name = prompt('Enter your name:');
     if (name) {
         try {
-            await addToLeaderboard(name, gameState.score) // azurira leaderboard
-            renderLeaderboard()
-            console.log('Successfully added to leaderboard')
+            const snakeEntity = gameState.find(entity => entity.Snake);
+            await addToLeaderboard(name, snakeEntity.Score.value);
+            await renderLeaderboard(getLeaderboard);
         } catch (error) {
             console.error('Failed to update leaderboard:', error.message);
         }
     }
-
-    clearTimeout(gameLoopId); // zaustavi petlju igre
-    gameMessage.textContent = 'Готова игра!'
-    gameButton.textContent = 'Пробај поново'
-    gameOverlay.style.display = 'flex' // prikazuje overlay
+    clearTimeout(gameLoopId); // Stop the loop
+    gameMessage.textContent = 'Game Over!';
+    gameButton.textContent = 'Try Again';
+    gameOverlay.style.display = 'flex';
 };
 
 
 document.addEventListener('keydown', (event) => {
-    gameState = handleInput(gameState, event.key); // azuriranje pravca
+    const direction = {
+        'ArrowUp': { x: 0, y: -1 },
+        'ArrowDown': { x: 0, y: 1 },
+        'ArrowLeft': { x: -1, y: 0 },
+        'ArrowRight': { x: 1, y: 0 }
+    }[event.key];
+    if (direction) {
+        console.log("gameState before handleInput:", gameState);
+        gameState = handleInput(gameState, { direction });
+        console.log("gameState after handleInput:", gameState);
+    }
 });
 
+gameButton.addEventListener('click', startGame);
 
-gameButton.addEventListener('click', () => {
-    startGame()
-    renderLeaderboard()
-});
-
-
-gameMessage.textContent = 'Почни игру'
-gameOverlay.style.display = 'flex'
+gameMessage.textContent = 'Почни игру';
+gameOverlay.style.display = 'flex';
