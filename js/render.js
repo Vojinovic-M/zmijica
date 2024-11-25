@@ -31,13 +31,21 @@ export const renderScore = (score) => {
 
 
 export const renderLeaderboard = async () => {
-    const leaderboard = await getLeaderboard();
-    const leaderboardList = document.getElementById('leaderboard-list');
-    leaderboardList.innerHTML = ''; // ocisti prethodne rezultate
+    try {
+        const leaderboard = await getLeaderboard();
+        const leaderboardList = document.getElementById('leaderboard-list');
+        leaderboardList.innerHTML = ''; // ocisti prethodne rezultate
 
-    leaderboard.slice(0, 10).forEach((entry, index) => {
-        const li = document.createElement('li');
-        li.textContent = `${entry.name} - ${entry.score} поена`;
-        leaderboardList.appendChild(li);
-    });
+        if (Array.isArray(leaderboard)) {
+            leaderboard.slice(0, 10).forEach((entry, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${entry.name} - ${entry.score} поена`;
+                leaderboardList.appendChild(li);
+            });
+        } else {
+            console.error('Leaderboard is not an array:', leaderboard);
+        }
+    } catch (error) {
+        console.error('Error fetching leaderboard:', error);
+    }
 };

@@ -1,6 +1,3 @@
-import { supabase } from "./supabase.js";
-
-
 export const updateGame = (state) => {
     const newHead = {
         x: state.snake[0].x + state.direction.x,
@@ -51,47 +48,3 @@ const generateFood = (snake) => {
     } while (isOnSnake);
     return newFood;
 };
-
-export const getLeaderboard = async () => {
-    try {
-        const { data, error } = await supabase
-            .from('leaderboard')
-            .select('name, score')
-            .order('score', { ascending: false });
-
-        if (error) {
-            console.error('Greška pri dohvaćanju rezultata:', error);
-            return [];
-        }
-
-        return data;
-    } catch (err) {
-        console.error('Greška pri povezivanju sa bazom:', err);
-        return [];
-    }
-};
-
-
-
-export const updateLeaderboard = async (name, score) => {
-    try {
-        // Dodavanje novog rezultata
-        const { data, error } = await supabase
-            .from('leaderboard')
-            .insert([{ name, score }]);
-
-        if (error) {
-            console.error('Greška pri dodavanju rezultata:', error);
-            return [];
-        }
-
-        // Dohvatanje svih rezultata iz baze i sortiranje po broju bodova
-        const leaderboard = await getLeaderboard();
-        const trimmedLeaderboard = leaderboard.slice(0, 10);
-        return trimmedLeaderboard;
-    } catch (err) {
-        console.error('Greska pri azuriranju leaderboard-a:', err);
-        return [];
-    }
-};
-

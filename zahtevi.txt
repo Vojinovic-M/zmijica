@@ -1,0 +1,14 @@
+morace za neke sisteme, kao sto su key state system koji imam i rendering sistem,
+da ih predstavim u listi entiteta i da svaki entitet ima svoje karakteristike.
+rendering treba da uzima listu entiteta, nad njima vrsi transformisanje, i mapira entitete na kanvas igrice.
+
+u idealnom slucaju kanvas bi bio jos jedan entitet, koji bi se nalazio u listi, onda bi imao filter gde bismo izvukli kanvas i onda lokalno koristili kopiju tog kanvasa. i kad se transformacije zavrse, da vrati novu listu entiteta. 
+
+sto se tice zmijice, treba da je opisem preko liste komponenata, treba da koristim createEntity, te komponente treba da stavim u novi array i onda da definisem sisteme. 
+
+u svakom slucaju, glavni princip jeste da sto vise funkcija treba da PRIMAJU listu entiteta i VRACAJU listu entiteta nakon sto je transformisanje u lokalnom opsegu zavrseno.
+
+BITNE STAVKE
+- treba da integrisem kompoziciju funkcija
+- treba da imam komponente koje ulaze i koje se vracaju
+- treba da wrapujem bazu podataka u monad
