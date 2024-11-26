@@ -23,6 +23,11 @@ export const handleInput = (entities, key) => {
                     direction: newDirection
                 };
             }
+        } else if (entity.type === 'Leaderboard' && key === 'l') { // Assuming 'l' is for 'Leaderboard'
+            return {
+                ...entity,
+                isVisible: !entity.isVisible,
+            };
         }
         return entity;
     });

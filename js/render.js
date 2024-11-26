@@ -1,34 +1,45 @@
 import { getLeaderboard } from "./leaderboard.js";
 
-
-export const renderGame = (state) => {
+export const renderGame = (entities) => {
     const board = document.getElementById('game-board'); // element tabele
     board.innerHTML = ''; // brisanje prethodne igre
 
-    // prikaz svakog segmenta zmije
-    state.snake.forEach(segment => {
-        const segmentDiv = document.createElement('div'); // element za segment
-        segmentDiv.style.gridRowStart = segment.y + 1; // postavka reda na grid
-        segmentDiv.style.gridColumnStart = segment.x + 1; // postavka kolone na grid
-        segmentDiv.className = 'snake'; // klasа za stil
-        board.appendChild(segmentDiv); // segment na tablu
+    entities.map(entity => {
+        switch (entity.type) {
+            case 'Snake':
+                renderSnake(board, entity.snake);
+                break;
+            case 'Food':
+                renderFood(board, entity.position);
+                break;
+            default:
+                break;
+        }
     });
-
-
-    const foodDiv = document.createElement('div'); // element za hranu
-    foodDiv.style.gridRowStart = state.food.y + 1; // postavka reda na grid
-    foodDiv.style.gridColumnStart = state.food.x + 1; // postavka kolone na grid
-    foodDiv.className = 'food'; // klasa za stil
-    board.appendChild(foodDiv); // dodaje hranu na tablu
-
 };
 
+const renderSnake = (board, snake) => {
+    snake.map(segment => {
+        const segmentDiv = document.createElement('div');
+        segmentDiv.style.gridRowStart = segment.y + 1;
+        segmentDiv.style.gridColumnStart = segment.x + 1;
+        segmentDiv.className = 'snake';
+        board.appendChild(segmentDiv);
+    });
+};
+
+const renderFood = (board, food) => {
+    const foodDiv = document.createElement('div');
+    foodDiv.style.gridRowStart = food.y + 1;
+    foodDiv.style.gridColumnStart = food.x + 1;
+    foodDiv.className = 'food';
+    board.appendChild(foodDiv);
+};
 
 export const renderScore = (score) => {
     const scoreElement = document.getElementById('score'); // element bodova
-    scoreElement.textContent = score; // azurira tekst
+    scoreElement.textContent = score;
 };
-
 
 export const renderLeaderboard = async () => {
     try {
@@ -37,10 +48,11 @@ export const renderLeaderboard = async () => {
         leaderboardList.innerHTML = ''; // ocisti prethodne rezultate
 
         if (Array.isArray(leaderboard)) {
-            leaderboard.slice(0, 10).forEach((entry, index) => {
+            leaderboard.slice(0, 10).map((entry, index) => {
                 const li = document.createElement('li');
                 li.textContent = `${entry.name} - ${entry.score} поена`;
                 leaderboardList.appendChild(li);
+                return li;
             });
         } else {
             console.error('Leaderboard is not an array:', leaderboard);

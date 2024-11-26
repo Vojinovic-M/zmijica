@@ -3,22 +3,16 @@ import { updateGame } from './logic.js';
 import { renderGame, renderScore, renderLeaderboard } from './render.js';
 import { addToLeaderboard } from './leaderboard.js';
 import { handleInput } from './input.js';
-
-const snakeEntity = {
-    type: 'Snake',
-    snake: initialState.snake,
-    direction: initialState.direction,
-    score: initialState.score,
-    gameOver: initialState.gameOver,
-    food: initialState.food
-};
-let foodEntity = {
-    type: 'Food',
-    position: initialState.food
-}
+import {foodEntity, gameStatusEntity, leaderboardEntity, scoreEntity, snakeEntity} from "./entities.js";
 
 
-let entities = [snakeEntity, foodEntity];
+let entities = [
+    snakeEntity(initialState),
+    foodEntity(initialState),
+    leaderboardEntity(),
+    scoreEntity(initialState.score),
+    gameStatusEntity()
+];
 
 let gameLoopId = null; // ID petlje igre
 
@@ -29,22 +23,18 @@ const gameButton = document.getElementById('game-button');
 // pokretanje igre
 const startGame = () => {
     console.log('Initial state:', initialState);
-    entities = [{
-        type: 'Snake',
-        snake: initialState.snake,
-        direction: initialState.direction,
-        score: initialState.score,
-        gameOver: initialState.gameOver,
-        food: initialState.food
-    }, {
-        type: 'Food',
-        position: initialState.food
-    }] // resetovanje entiteta
+    entities = [
+        snakeEntity(initialState),
+        foodEntity(initialState),
+        leaderboardEntity(),
+        scoreEntity(initialState.score),
+        gameStatusEntity()
+    ] // resetovanje entiteta
 
     gameOverlay.style.display = 'none'; // Sakrivanje overlay-a
     gameMessage.textContent = ''; // Očisti poruku
-    renderGame(entities[0]); // Prikaz početnog stanja
-    renderScore(entities[0].score); // Reset skora
+    renderGame(entities); // Prikaz početnog stanja
+    renderScore(initialState.score); // Reset skora
     gameLoop(); // Pokretanje petlje igre
 };
 
@@ -52,10 +42,12 @@ const startGame = () => {
 const gameLoop = () => {
     console.log('Game loop running...'); // Debug log
     entities = updateGame(entities);
-    renderGame(entities[0]);
-    renderScore(entities[0].score); // azuriranje skora
+    renderGame(entities);
 
-    if (!entities[0].gameOver) {
+    const snake = entities.find(entity => entity.type === 'Snake');
+    renderScore(snake.score);
+
+    if (!snake.gameOver) {
         gameLoopId = setTimeout(gameLoop, 100);
     } else {
         endGame();
@@ -65,9 +57,10 @@ const gameLoop = () => {
 
 const endGame = async () => {
     const name = prompt('Унесите своје име:')
+    const snake = entities.find(entity => entity.type === 'Snake');
     if (name) {
         try {
-            await addToLeaderboard(name, entities[0].score); // azurira leaderboard
+            await addToLeaderboard(name, snake.score); // azurira leaderboard
             renderLeaderboard()
             console.log('Successfully added to leaderboard')
         } catch (error) {
@@ -82,11 +75,17 @@ const endGame = async () => {
 
 document.addEventListener('keydown', (event) => {
     entities = handleInput(entities, event.key); // azuriranje pravca
+    const leaderboard = entities.find((entity) => entity.type === 'Leaderboard');
+    if (leaderboard.isVisible) {
+        document.getElementById('leaderboard').style.display = 'flex';
+    } else {
+        document.getElementById('leaderboard').style.display = 'none';
+    }
 });
 
 gameButton.addEventListener('click', () => {
-    startGame()
-    renderLeaderboard()
+    startGame();
+    renderLeaderboard();
 });
 
 

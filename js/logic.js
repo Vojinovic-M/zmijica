@@ -1,50 +1,52 @@
 export const updateGame = (entities) => {
-    return entities.map((entity) => {
-        if (entity.type === 'Snake') {
-            const newHead = {
-                x: entity.snake[0].x + entity.direction.x,
-                y: entity.snake[0].y + entity.direction.y,
-            };
+    // nadji trenutni state zmije i hrane
+    const snakeEntity = entities.find(e => e.type === 'Snake');
+    let newHead = {
+        x: snakeEntity.snake[0].x + snakeEntity.direction.x,
+        y: snakeEntity.snake[0].y + snakeEntity.direction.y,
+    };
 
-            if (entity.direction.x !== 0 || entity.direction.y !== 0) {
-                const outOfBounds =
-                    newHead.x < 0 || newHead.y < 0 ||
-                    newHead.x >= 20 || newHead.y >= 20;
+    if (snakeEntity.direction.x !== 0 || snakeEntity.direction.y !== 0) {
+        const outOfBounds =
+            newHead.x < 0 || newHead.y < 0 ||
+            newHead.x >= 20 || newHead.y >= 20;
 
-                const selfCollision = entity.snake.some(
-                    (segment) => segment.x === newHead.x && segment.y === newHead.y
-                );
+        const selfCollision = snakeEntity.snake.some(
+            (segment) => segment.x === newHead.x && segment.y === newHead.y
+        );
 
-                if (outOfBounds || selfCollision) {
-                    return { ...entity, gameOver: true };
-                }
-            }
+        if (outOfBounds || selfCollision) {
+            return entities.map(e => e.type === 'Snake' ? { ...e, gameOver: true } : e);
+        }
+    }
             // provera da li je zmija pojela hranu
-            const foodEaten = newHead.x === entity.food.x && newHead.y === entity.food.y;
-            const newFood = foodEaten ? generateFood(entity.snake) : entity.food;
+    const foodEntity = entities.find(e => e.type === 'Food');
+    const foodEaten = newHead.x === foodEntity.position.x && newHead.y === foodEntity.position.y;
 
             // azuriranje pozicije zmije
-            const newSnake = foodEaten
-                ? [newHead, ...entity.snake]
-                : [newHead, ...entity.snake.slice(0, -1)];
-
+    const newSnake = foodEaten
+        ? [newHead, ...snakeEntity.snake]
+        : [newHead, ...snakeEntity.snake.slice(0, -1)];
+    return entities.map(entity => {
+        if (entity.type === 'Snake') {
             return {
-                // kad zmija pojede hranu, dodaje novu glavu i povecava skor
                 ...entity,
                 snake: newSnake,
-                food: newFood,
                 score: foodEaten ? entity.score + 1 : entity.score,
             };
+        } else if (entity.type === 'Food' && foodEaten) {
+            return {
+                ...entity,
+                position: generateFood(newSnake),
+            };
         }
-        // FOOD ENTITY LOGIKA
         return entity;
-    })
+    });
 }
 
 
 const generateFood = (snake) => {
-    let newFood;
-    let isOnSnake;
+    let newFood, isOnSnake;
     do {
         newFood = {
             x: Math.floor(Math.random() * 20),
