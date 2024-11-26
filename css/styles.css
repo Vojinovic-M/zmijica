@@ -29,8 +29,8 @@ body {
 /* Tabla za igru */
 #game-board {
     display: grid;
-    grid-template-columns: repeat(20, 30px);
-    grid-template-rows: repeat(20, 30px);
+    grid-template-columns: repeat(20, 25px);
+    grid-template-rows: repeat(20, 25px);
     gap: 1px;
     background-color: rgb(41, 97, 39);
     border: 2px solid white;
