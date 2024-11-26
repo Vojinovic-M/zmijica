@@ -13,13 +13,17 @@ const directionMap = {
     'ArrowRight': Direction.RIGHT
 };
 
-export const handleInput = (state, key) => {
-    // kopija trenutnog stanja za kasnije menjanje
-    const newState = { ...state };
-
-    const newDirection = directionMap[key];
-    if (newDirection && newDirection.opposite !== state.direction.opposite) {
-        newState.direction = newDirection;
-    }
-    return newState;
+export const handleInput = (entities, key) => {
+    return entities.map((entity) => {
+        if (entity.type === 'Snake' && directionMap[key]) {
+            const newDirection = directionMap[key];
+            if (newDirection.opposite !== entity.direction.opposite) {
+                return {
+                    ...entity,
+                    direction: newDirection
+                };
+            }
+        }
+        return entity;
+    });
 };
