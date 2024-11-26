@@ -53,11 +53,8 @@ export const renderLeaderboard = async () => {
                 li.textContent = `${entry.name} - ${entry.score} поена`;
                 leaderboardList.appendChild(li);
                 return li;
-            });
-        } else {
-            console.error('Leaderboard is not an array:', leaderboard);
-        }
-    } catch (error) {
-        console.error('Error fetching leaderboard:', error);
+            });}
+        else { console.error('Leaderboard is not an array:', leaderboard); }
     }
+    catch (error) { console.error('Error fetching leaderboard:', error); }
 };

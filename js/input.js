@@ -1,4 +1,4 @@
-// entitet za mapiranje pravaca
+// komponenta za mapiranje pravaca
 const Direction = {
     UP: { x: 0, y: -1, opposite: 'DOWN' },
     DOWN: { x: 0, y: 1, opposite: 'UP' },
@@ -18,16 +18,10 @@ export const handleInput = (entities, key) => {
         if (entity.type === 'Snake' && directionMap[key]) {
             const newDirection = directionMap[key];
             if (newDirection.opposite !== entity.direction.opposite) {
-                return {
-                    ...entity,
-                    direction: newDirection
-                };
+                return { ...entity, direction: newDirection };
             }
-        } else if (entity.type === 'Leaderboard' && key === 'l') { // Assuming 'l' is for 'Leaderboard'
-            return {
-                ...entity,
-                isVisible: !entity.isVisible,
-            };
+        } else if (entity.type === 'Leaderboard' && key === 'l') {
+            return { ...entity, isVisible: !entity.isVisible };
         }
         return entity;
     });

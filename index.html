@@ -40,18 +40,15 @@
         const leaderboardButton = document.getElementById('leaderboard-button');
         const leaderboard = document.getElementById('leaderboard');
 
-        // Dodajemo event listener za klik na dugme
         leaderboardButton.addEventListener('click', function() {
-            // Ako je leaderboard trenutno skriven, prikaži ga
             if (leaderboard.style.display === 'none' || leaderboard.style.display === '') {
                 leaderboard.style.display = 'flex';
-                leaderboardButton.textContent = 'Сакриј резултате'; // Menjamo tekst na dugmetu
+                leaderboardButton.textContent = 'Сакриј резултате';
             } else {
                 leaderboard.style.display = 'none';
-                leaderboardButton.textContent = 'Погледај резултате'; // Menjamo tekst na dugmetu
+                leaderboardButton.textContent = 'Погледај резултате';
             }
         });
-
     </script>
 </body>
 </html>

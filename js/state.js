@@ -1,8 +1,8 @@
 // definicija pocetnog stanja igre
 export const initialState = {
-    snake: [{ x: 10, y: 10 }],  // Početni segmenti zmije (glava na poziciji 10,10)
-    food: { x: 15, y: 10 }, // Početna pozicija hrane
-    direction: { x: 0, y: 0 }, // Početni pravac (zmija stoji)
-    gameOver: false, // Da li je igra završena
+    snake: [{ x: 10, y: 10 }],  // glava na poziciji 10,10
+    food: { x: 15, y: 10 },
+    direction: { x: 0, y: 0 }, // zmija stoji
+    gameOver: false,
     score: 0
 };

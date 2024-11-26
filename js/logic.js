@@ -1,5 +1,4 @@
 export const updateGame = (entities) => {
-    // nadji trenutni state zmije i hrane
     const snakeEntity = entities.find(e => e.type === 'Snake');
     let newHead = {
         x: snakeEntity.snake[0].x + snakeEntity.direction.x,
@@ -19,31 +18,27 @@ export const updateGame = (entities) => {
             return entities.map(e => e.type === 'Snake' ? { ...e, gameOver: true } : e);
         }
     }
-            // provera da li je zmija pojela hranu
+    // provera da li je zmija pojela hranu
     const foodEntity = entities.find(e => e.type === 'Food');
     const foodEaten = newHead.x === foodEntity.position.x && newHead.y === foodEntity.position.y;
 
-            // azuriranje pozicije zmije
+    // azuriranje pozicije zmije
     const newSnake = foodEaten
         ? [newHead, ...snakeEntity.snake]
         : [newHead, ...snakeEntity.snake.slice(0, -1)];
+
     return entities.map(entity => {
         if (entity.type === 'Snake') {
-            return {
-                ...entity,
+            return { ...entity,
                 snake: newSnake,
                 score: foodEaten ? entity.score + 1 : entity.score,
             };
         } else if (entity.type === 'Food' && foodEaten) {
-            return {
-                ...entity,
-                position: generateFood(newSnake),
-            };
+            return { ...entity, position: generateFood(newSnake) };
         }
         return entity;
     });
 }
-
 
 const generateFood = (snake) => {
     let newFood, isOnSnake;

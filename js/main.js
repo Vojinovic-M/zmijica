@@ -5,7 +5,6 @@ import { addToLeaderboard } from './leaderboard.js';
 import { handleInput } from './input.js';
 import {foodEntity, gameStatusEntity, leaderboardEntity, scoreEntity, snakeEntity} from "./entities.js";
 
-
 let entities = [
     snakeEntity(initialState),
     foodEntity(initialState),
@@ -29,13 +28,12 @@ const startGame = () => {
         leaderboardEntity(),
         scoreEntity(initialState.score),
         gameStatusEntity()
-    ] // resetovanje entiteta
-
-    gameOverlay.style.display = 'none'; // Sakrivanje overlay-a
-    gameMessage.textContent = ''; // Očisti poruku
-    renderGame(entities); // Prikaz početnog stanja
-    renderScore(initialState.score); // Reset skora
-    gameLoop(); // Pokretanje petlje igre
+    ];
+    gameOverlay.style.display = 'none';
+    gameMessage.textContent = '';
+    renderGame(entities); // prikaz pocetnog stanja
+    renderScore(initialState.score); // reset za score
+    gameLoop(); // pokretanje petlje igre
 };
 
 // petlja igre
@@ -47,11 +45,8 @@ const gameLoop = () => {
     const snake = entities.find(entity => entity.type === 'Snake');
     renderScore(snake.score);
 
-    if (!snake.gameOver) {
-        gameLoopId = setTimeout(gameLoop, 100);
-    } else {
-        endGame();
-    }
+    if (!snake.gameOver) { gameLoopId = setTimeout(gameLoop, 100); }
+    else                 { endGame(); }
 };
 
 
@@ -70,24 +65,21 @@ const endGame = async () => {
     clearTimeout(gameLoopId); // zaustavi petlju igre
     gameMessage.textContent = 'Готова игра!'
     gameButton.textContent = 'Пробај поново'
-    gameOverlay.style.display = 'flex' // prikazuje overlay
+    gameOverlay.style.display = 'flex'
 };
 
 document.addEventListener('keydown', (event) => {
     entities = handleInput(entities, event.key); // azuriranje pravca
     const leaderboard = entities.find((entity) => entity.type === 'Leaderboard');
-    if (leaderboard.isVisible) {
-        document.getElementById('leaderboard').style.display = 'flex';
-    } else {
-        document.getElementById('leaderboard').style.display = 'none';
-    }
+
+    if (leaderboard.isVisible) { document.getElementById('leaderboard').style.display = 'flex'; }
+    else                       { document.getElementById('leaderboard').style.display = 'none'; }
 });
 
 gameButton.addEventListener('click', () => {
     startGame();
     renderLeaderboard();
 });
-
 
 gameMessage.textContent = 'Почни игру'
 gameOverlay.style.display = 'flex'

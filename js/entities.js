@@ -1,5 +1,3 @@
-// entities.js
-
 export const snakeEntity = (initialState) => ({
     type: 'Snake',
     snake: initialState.snake,
