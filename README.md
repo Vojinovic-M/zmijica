@@ -26,7 +26,7 @@ To get a copy of this project up and running on your local machine for developme
 1. Clone the repository
 
     ```sh
-    git clone https://github.com/your-username/snake-game.git
+    git clone https://github.com/Vojinovic-M/snake-game.git
     ```
 
 2. Navigate to the project directory
